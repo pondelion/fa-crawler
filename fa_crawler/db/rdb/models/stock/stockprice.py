@@ -1,10 +1,11 @@
-from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, BigInteger, UniqueConstraint
+from sqlalchemy import (BigInteger, Column, Date, DateTime, ForeignKey,
+                        Integer, UniqueConstraint)
 from sqlalchemy.sql.functions import current_timestamp
 
 from ..base import Base
 
 
-class YFDailyStockpriceModel(Base):
+class YFDailyStockpriceModel(Base):  # type: ignore
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True, nullable=False)
     date = Column(Date, index=True)
     open = Column(Integer, nullable=False)
@@ -21,7 +22,7 @@ class YFDailyStockpriceModel(Base):
     __table_args__ = (UniqueConstraint('date', 'company_code', name='unique_date_company_code'),)
 
 
-class StqDailyStockpriceModel(Base):
+class StqDailyStockpriceModel(Base):  # type: ignore
     date = Column(Date, nullable=False, primary_key=True, index=True)
     open = Column(Integer, nullable=False)
     close = Column(Integer, nullable=False)

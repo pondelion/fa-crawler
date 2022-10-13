@@ -1,7 +1,7 @@
 import hashlib
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict
+from typing import Any, Dict, Optional, Tuple
 
 import feedparser
 from timeout_decorator import timeout
@@ -26,12 +26,18 @@ class TopicRSSCrawler(BaseCrawler):
         self,
         callback: BaseCrawler.Callback = BaseCrawler.DefaultCallback(),
         topic: Topic = Topic.BUSSINESS
-    ) -> Any:
-        """[summary]
+    ) -> Tuple[Optional[Any], Optional[Dict[str, Any]]]:
+        """_summary_
 
         Args:
-            callback (BaseCrawler.Callback, optional): [description]. Defaults to BaseCrawler.DefaultCallback().
-            topic (Topic, optional): [description]. Defaults to Topic.BUSSINESS.
+            callback (BaseCrawler.Callback, optional): _description_. Defaults to BaseCrawler.DefaultCallback().
+            topic (Topic, optional): _description_. Defaults to Topic.BUSSINESS.
+
+        Raises:
+            Exception: _description_
+
+        Returns:
+            Tuple[Optional[Any], Optional[Dict[str, Any]]]: _description_
         """
 
         kwargs = {
@@ -55,7 +61,7 @@ class TopicRSSCrawler(BaseCrawler):
     def _fetch(self, url):
         return feedparser.parse(url)
 
-    def _validate_results(self, entries):
+    def _validate_results(self, entries) -> bool:
         return all(['published_parsed' in entry for entry in entries])
 
     def _parse(self, entry: Dict[str, Any], topic: Topic) -> GoogleNewsSchema:

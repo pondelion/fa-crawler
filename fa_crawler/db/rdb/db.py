@@ -3,10 +3,12 @@ from sqlalchemy_utils import create_database, database_exists, drop_database
 from ...settings import settings
 from ...utils.logger import Logger
 from .models.base import Base
+# テーブル作成させるために以下で全てのモデルインポート要
 from .models.company import CompanyModel, SectorModel
 from .models.financial import YFFinancialModel
 from .models.news import GoogleNewsModel
 from .models.stock import StqDailyStockpriceModel, YFDailyStockpriceModel
+from .models.trend import GoogleTrendModel
 
 
 def delete_database() -> None:
@@ -31,7 +33,7 @@ def init_rdb(
     create_databse()
     if recreate_table:
         drop_all_tables(engine)
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine)  # type: ignore
 
 
 def show_tables(engine) -> None:
@@ -64,6 +66,6 @@ def drop_all_tables(engine) -> None:
     except Exception as e:
         print(e)
     try:
-        Base.metadata.drop_all(engine)
+        Base.metadata.drop_all(engine)  # type: ignore
     except Exception as e:
         print(e)

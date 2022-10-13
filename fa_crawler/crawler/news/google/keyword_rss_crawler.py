@@ -1,6 +1,6 @@
 import hashlib
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict, Optional, Tuple
 from urllib.parse import quote
 
 import feedparser
@@ -19,14 +19,16 @@ class KeywordRSSCrawler(BaseCrawler):
         self,
         keyword: str,
         callback: BaseCrawler.Callback = BaseCrawler.DefaultCallback(),
-    ) -> Any:
-        """[summary]
+    ) -> Tuple[Optional[Any], Optional[Dict[str, Any]]]:
+        """_summary_
 
         Args:
-            keyword (str): [description]
-            callback (BaseCrawler.Callback, optional): [description]. Defaults to BaseCrawler.DefaultCallback().
-        """
+            keyword (str): _description_
+            callback (BaseCrawler.Callback, optional): _description_. Defaults to BaseCrawler.DefaultCallback().
 
+        Returns:
+            Tuple[Optional[Any], Optional[Dict[str, Any]]]: _description_
+        """
         kwargs = {
             'keyword': keyword
         }

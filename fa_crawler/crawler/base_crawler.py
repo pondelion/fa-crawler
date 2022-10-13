@@ -1,7 +1,10 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, Dict, Generator
+from typing import Any, Dict, Generator, Optional, Tuple
 
 import pandas as pd
+
+RESULT_DATA_TYPE = Any
+PARAM_TYPE = Dict[str, Any]
 
 
 class BaseCrawler(metaclass=ABCMeta):
@@ -68,9 +71,17 @@ class BaseCrawler(metaclass=ABCMeta):
         *args,
         callback: Callback = DefaultCallback(),
         **kwargs,
-    ) -> Any:
-        """run crawl
-        Subclass must implemets this method
+    ) -> Tuple[Optional[RESULT_DATA_TYPE], Optional[PARAM_TYPE]]:
+        """_summary_
+
+        Args:
+            callback (Callback, optional): _description_. Defaults to DefaultCallback().
+
+        Raises:
+            NotImplementedError: _description_
+
+        Returns:
+            Tuple[Optional[RESULT_DATA_TYPE], Optional[PARAM_TYPE]]: _description_
         """
         raise NotImplementedError
 

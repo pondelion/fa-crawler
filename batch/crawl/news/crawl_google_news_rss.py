@@ -18,8 +18,11 @@ class RDBStoreCallback(TopicRSSCrawler.Callback):
 
         Logger.d(TAG, '=' * 100)
         Logger.d(TAG, f'start saving data to rdb, len(data) : {len(data)}')
-        news_rdb_repo.create_all(session, data_list=data, ignore_existing_ids=True)
-        Logger.d(TAG, 'done')
+        try:
+            news_rdb_repo.create_all(session, data_list=data, ignore_existing_ids=True)
+            Logger.d(TAG, 'done')
+        except Exception as e:
+            Logger.e(TAG, f'failed to save rdb : {e}')
 
     def on_failed(self, e, params):
         Logger.e(TAG, f'on_failed : {params["topic"]} : {e}')

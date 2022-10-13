@@ -4,7 +4,7 @@ from sqlalchemy.sql.functions import current_timestamp
 from ..base import Base
 
 
-class GoogleNewsModel(Base):
+class GoogleNewsModel(Base):  # type: ignore
     id = Column(
         String(32), primary_key=True, nullable=False
     )
